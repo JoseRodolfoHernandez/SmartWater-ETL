@@ -1,34 +1,26 @@
-# Smart Water – Almacenamiento y preparación de datos (Big Data)
+# Smart Water · Módulo de agua de Ciudad Inteligente
 
-Módulo **Smart Water (SW-01)** del proyecto Ciudad Inteligente. Universidad de Cundinamarca, Extensión Chía – Ingeniería de Sistemas y Computación (7.º semestre).
+Proyecto de Big Data (7.º semestre, Ingeniería de Sistemas y Computación, Universidad de Cundinamarca, Extensión Chía).
+Integrantes: Sebastián Pedraza Bernal · Jose Rodolfo Hernandez.
 
-**Autores:** Sebastián Pedraza Bernal, Jose Rodolfo Hernandez
-**Docente:** Edison Gustavo Cañón Varela · **Asignatura:** Big Data
+**Sitio web del proyecto:** https://joserodolfohernandez.github.io/SmartWater-ETL/
 
-## Qué contiene
-| Carpeta | Contenido |
+## Contenido
+| Carpeta | Qué contiene |
 |---|---|
-| `sql/` | Scripts 01 a 06 (creación, carga, validación, DW, validación ETL, consultas analíticas) |
-| `simulacion/` | `simulador_smartwater.py` (semilla 701) |
-| `ssis/` | Proyecto `ETL_SmartWater` con el paquete `Carga_SmartWaterDW.dtsx` |
-| `datos/` | CSV generados (Medicion, Evento, Accionamiento) si el tamaño lo permite; si no, se regeneran con el simulador |
-| `evidencias/` | Capturas de ejecución (opcional) |
+| `index.html` | Sitio web del PGC (problema, solución, datos, dashboard, conocimientos, decisiones, validación) |
+| `sql/` | Scripts 01 a 06: modelo relacional, carga, validación, Data Warehouse en estrella, validación del ETL y consultas analíticas |
+| `simulador/` | `simulador_smartwater.py`: genera 1.008.000 mediciones de 10 dispositivos (semilla 701) |
+| `ssis/` | Proyecto de Integration Services (`Carga_SmartWaterDW.dtsx`) |
+| `powerbi/` | Informe de Power BI (`SmartWater.pbix`) |
+| `documentos/` | Informe técnico |
+| `evidencias/` | Capturas del dashboard |
 
-## Requisitos
-SQL Server 2022 (Developer) + SSMS · Visual Studio 2022 con SSIS · Python 3 con `numpy`.
+## Cómo reproducirlo
+1. Ejecutar en SQL Server los scripts `sql/01` a `sql/06` en orden.
+2. Correr `python simulador/simulador_smartwater.py` para generar Medicion, Evento y Accionamiento (CSV).
+3. Abrir `ssis/ETL_SmartWater.sln` en Visual Studio y ejecutar `Carga_SmartWaterDW.dtsx` para cargar `SmartWaterDW`.
+4. Abrir `powerbi/SmartWater.pbix` y conectar al Data Warehouse.
 
-## Cómo reproducir
-1. Ejecutar el **script 01** en SSMS: crea `SmartWaterDB` y sus tablas de referencia.
-2. Ejecutar `python simulacion/simulador_smartwater.py` (genera los 3 CSV, 1.008.000 mediciones, 1-abr a 27-oct-2026).
-3. Ajustar la ruta de los CSV en `02_carga_simulacion.sql` y ejecutarlo (BULK INSERT con CHECK_CONSTRAINTS). Esperado: `Medicion = 1.008.000`.
-4. Ejecutar el **script 03**: validaciones de cantidad, integridad y coherencia del origen.
-5. Ejecutar el **script 04**: crea `SmartWaterDW` (DimFecha 365, DimHora 96; el resto vacío).
-6. Abrir `ssis/ETL_SmartWater`, ajustar los dos administradores de conexión OLE DB (origen y DW) a su instancia y ejecutar `Carga_SmartWaterDW.dtsx`. Esperado: **1.008.000 extraídas = 1.007.157 cargadas + 843 rechazadas**.
-7. Ejecutar `05_validacion_etl.sql` (conciliación, diferencia 0).
-8. Ejecutar `06_consultas_analiticas.sql` (consultas C1–C7).
-
-Repetir el paso 6 no genera duplicados (recarga controlada + restricción única).
-
-## Enlaces
-- Informe técnico: `Informe_SmartWater_ETL_final.pdf`
-- Video: [PEGAR ENLACE]
+## Cifras de control
+1.008.000 mediciones extraídas = 1.007.157 cargadas + 843 rechazadas · 1.735 eventos en el DW · 492,3 m³ bombeados.
