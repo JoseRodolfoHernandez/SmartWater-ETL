@@ -635,12 +635,6 @@ footer b{color:#fff;font-family:var(--h)}
 <dt>Umbral</dt><dd>Valor a partir del cual una lectura se considera una alerta.</dd>
 <dt>Lookup</dt><dd>Búsqueda de la llave de una dimensión para enlazar cada lectura con su contexto.</dd>
 </dl>
-<h3>Cómo reproducir el trabajo</h3>
-<ol>
-<li>Tomar los archivos del proyecto (carpeta SmartWater_ETL) y ejecutar los scripts SQL 01 a 06 en orden sobre SQL Server 2022.</li>
-<li>Correr <code>simulador_smartwater.py</code> (semilla 701) para generar Medicion, Evento y Accionamiento.</li>
-<li>Abrir el paquete SSIS <code>Carga_SmartWaterDW.dtsx</code> en Visual Studio y ejecutarlo para llenar SmartWaterDW.</li>
-<li>Ejecutar las consultas C1–C7 para obtener las cifras de esta página y conectar Power BI a SmartWaterDW.</li></ol>
 </section>
 </div>
 </main>
@@ -653,7 +647,7 @@ footer b{color:#fff;font-family:var(--h)}
 <button class="top" id="top" aria-label="Volver arriba" type="button">↑</button>
 
 <script>
-// Pega aquí el enlace de inserción del informe publicado en Power BI Service
+https://app.powerbi.com/view?r=eyJrIjoiYjI0YTAyNzEtNjM3ZC00M2Y2LWFjYTktZGRkODZhYWIxOTEzIiwidCI6IjA3ZGE2N2EwLTFmNDMtNGU4Yy05NzdmLTVmODhiNjQ3MGVlNiIsImMiOjR9
 const POWERBI_URL = "";
 
 (function(){
